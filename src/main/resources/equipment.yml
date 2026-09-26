@@ -1,0 +1,31 @@
+# OniGame equipment registry v1
+# equipment ID -> Material / CustomModelData / display data
+# All Oni armor intentionally uses DIAMOND_* as its common base material.
+# Reserved CMD range: 3000-3999 = Oni armor.
+equipment:
+  oni_dakko_helmet: {name: "&5堕狐の面", material: DIAMOND_HELMET, custom-model-data: 3101, lore: ["&8ID: oni.dakko.helmet"]}
+  oni_dakko_chestplate: {name: "&5堕狐の装束", material: DIAMOND_CHESTPLATE, custom-model-data: 3102, lore: ["&8ID: oni.dakko.chestplate"]}
+  oni_dakko_leggings: {name: "&5堕狐の袴", material: DIAMOND_LEGGINGS, custom-model-data: 3103, lore: ["&8ID: oni.dakko.leggings"]}
+  oni_dakko_boots: {name: "&5堕狐の足袋", material: DIAMOND_BOOTS, custom-model-data: 3104, lore: ["&8ID: oni.dakko.boots"]}
+  oni_kishin_helmet: {name: "&4鬼王の兜", material: DIAMOND_HELMET, custom-model-data: 3201, lore: ["&8ID: oni.kishin.helmet"]}
+  oni_kishin_chestplate: {name: "&4鬼王の鎧", material: DIAMOND_CHESTPLATE, custom-model-data: 3202, lore: ["&8ID: oni.kishin.chestplate"]}
+  oni_kishin_leggings: {name: "&4鬼王の具足", material: DIAMOND_LEGGINGS, custom-model-data: 3203, lore: ["&8ID: oni.kishin.leggings"]}
+  oni_kishin_boots: {name: "&4鬼王の足具", material: DIAMOND_BOOTS, custom-model-data: 3204, lore: ["&8ID: oni.kishin.boots"]}
+  oni_shikki_helmet: {name: "&c疾鬼の兜", material: DIAMOND_HELMET, custom-model-data: 3301, lore: ["&8ID: oni.shikki.helmet"]}
+  oni_shikki_chestplate: {name: "&4疾鬼の装束", material: DIAMOND_CHESTPLATE, custom-model-data: 3302, lore: ["&8ID: oni.shikki.chestplate"]}
+  oni_shikki_leggings: {name: "&8疾鬼の袴", material: DIAMOND_LEGGINGS, custom-model-data: 3303, lore: ["&8ID: oni.shikki.leggings"]}
+  oni_shikki_boots: {name: "&4疾鬼の足具", material: DIAMOND_BOOTS, custom-model-data: 3304, lore: ["&8ID: oni.shikki.boots"]}
+  oni_yuuki_helmet: {name: "&5幽鬼の兜", material: DIAMOND_HELMET, custom-model-data: 3401, lore: ["&8ID: oni.yuuki.helmet"]}
+  oni_yuuki_chestplate: {name: "&5幽鬼の装束", material: DIAMOND_CHESTPLATE, custom-model-data: 3402, lore: ["&8ID: oni.yuuki.chestplate"]}
+  oni_yuuki_leggings: {name: "&8幽鬼の袴", material: DIAMOND_LEGGINGS, custom-model-data: 3403, lore: ["&8ID: oni.yuuki.leggings"]}
+  oni_yuuki_boots: {name: "&5幽鬼の足具", material: DIAMOND_BOOTS, custom-model-data: 3404, lore: ["&8ID: oni.yuuki.boots"]}
+  oni_jakutsuki_helmet: {name: "&5蛇窟姫の髪飾り", material: DIAMOND_HELMET, custom-model-data: 3601, lore: ["&8ID: oni.jakutsuki.helmet"]}
+  oni_jakutsuki_chestplate: {name: "&5蛇窟姫の装束", material: DIAMOND_CHESTPLATE, custom-model-data: 3602, lore: ["&8ID: oni.jakutsuki.chestplate"]}
+  oni_jakutsuki_leggings: {name: "&5蛇窟姫の袴", material: DIAMOND_LEGGINGS, custom-model-data: 3603, lore: ["&8ID: oni.jakutsuki.leggings"]}
+  oni_jakutsuki_boots: {name: "&5蛇窟姫の足袋", material: DIAMOND_BOOTS, custom-model-data: 3604, lore: ["&8ID: oni.jakutsuki.boots"]}
+
+  # Friendly NPC: 字九字ひろ (worn appearance uses the Netherite armor layer)
+  npc_azakuji_helmet: {name: "&6字九字ひろの頭装備", material: NETHERITE_HELMET, custom-model-data: 0, lore: ["&8ID: npc.azakuji.helmet"]}
+  npc_azakuji_chestplate: {name: "&6字九字ひろの装束", material: NETHERITE_CHESTPLATE, custom-model-data: 0, lore: ["&8ID: npc.azakuji.chestplate"]}
+  npc_azakuji_leggings: {name: "&6字九字ひろの袴", material: NETHERITE_LEGGINGS, custom-model-data: 0, lore: ["&8ID: npc.azakuji.leggings"]}
+  npc_azakuji_boots: {name: "&6字九字ひろの足具", material: NETHERITE_BOOTS, custom-model-data: 0, lore: ["&8ID: npc.azakuji.boots"]}

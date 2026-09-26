@@ -1,0 +1,985 @@
+
+# 鬼ごとの成長方式。今後の鬼追加で共通0/2/4/6解放に固定しない。
+oni-progression:
+  dakko: unlock
+  kishin: unlock
+  shikki: core-expansion
+  yuuki: unlock
+  kanki: summon-command
+  jakutsuki: special
+
+minimum-players: 1
+# v0.25.0: 通常試合は不足人数をぷれいやーBotで補うため、実参加者1人から開始可能です。
+game-seconds: 1080
+# v0.40.13 フェーズ時間固定。ロビーは朝、通常ゲームは夜。
+# 最終フェーズは final-crimson.player-time のプレイヤー個別時間が優先されます。
+phase-time:
+  lobby: 1000
+  game: 18000
+start-title:
+  # リソースパックv11の「鬼げぇむ」ロゴをゲーム開始時に表示します。
+  enabled: true
+  fade-in-ticks: 10
+  stay-ticks: 50
+  fade-out-ticks: 20
+heart-material: CRYING_OBSIDIAN
+heart-max-health: 115
+heart-progress-per-interval: 1
+heart-progress-interval-ticks: 14
+heart-group-scaling:
+  # 鬼側有利調整: 同じ心臓への集中損傷は強めに逓減する。
+  # 合計効率は 1人=1.00倍 / 2人=1.60倍 / 3人=1.86倍 / 4人=2.08倍 / 5人=2.25倍程度。
+  player-1: 1.00
+  player-2: 0.80
+  player-3: 0.62
+  player-4: 0.52
+  player-5-plus: 0.45
+passive-skills:
+  # 「強靭」装備時の最大体力（体力2.0でハート1個）。
+  durability-max-health: 30
+  # 「退魔」の心臓損壊進行倍率。1.15で通常より15%高速になります。
+  exorcism-heart-progress-multiplier: 1.10
+  practiced-heart-progress-step: 0.025
+  practiced-heart-progress-max: 0.10
+  desperate-heart-progress-multiplier: 1.20
+  # 「賭け金二倍」: GREAT成功ごとに、その判定の追加損傷ボーナスを積み上げる。
+  # 失敗・通常成功・中断で連続成功数はリセット。
+  double-stakes-great-bonus-step: 2
+  double-stakes-great-bonus-max-extra: 10
+  # 「臆病」発動中の基礎歩行速度。0.58でスニーク実効速度が通常歩行より少し遅くなります。
+  cowardice-sneak-walk-speed: 0.58
+  # 「忍びの血統」の常時歩行速度。鬼の標準0.24より少し遅い0.23です。
+  ninja-blood-walk-speed: 0.23
+  # 「跳躍」はスペース2回押しで前方へ跳びます。
+  leap-cooldown-seconds: 10
+  leap-forward-velocity: 1.25
+  leap-upward-velocity: 0.85
+  # EX「字九字ひろ」パッシブ 神技
+  divine-technique-walk-speed: 0.21
+  divine-technique-attack-multiplier: 1.10
+  divine-technique-damage-taken-multiplier: 0.90
+technical-passives:
+  parry-window-millis: 320
+  parry-cooldown-seconds: 20
+  parry-damage-multiplier: 0.50
+  parry-stamina-cost: 4.0
+  quick-turn-cooldown-seconds: 12
+  quick-turn-velocity: 0.90
+  silent-breath-charge-millis: 2000
+  last-reserve-threshold: 3.0
+  last-reserve-recovery: 5.0
+  last-reserve-cooldown-seconds: 25
+  # 陽動: パッシブ所持中、スニーク＋右クリックで発動（専用アイテム・消費なし）。
+  # 着弾後は偽の逃走音が移動し、鬼が囮へ接近すると使用者に成功報酬。
+  decoy-duration-seconds: 12
+  decoy-cooldown-seconds: 40
+  decoy-throw-power: 1.35
+  decoy-run-step: 0.62
+  decoy-noise-strength: 4.6
+  decoy-success-radius: 5.0
+  decoy-success-speed-ticks: 100
+  cornered-rat-window-millis: 550
+  cornered-rat-cooldown-seconds: 18
+  cornered-rat-speed-ticks: 45
+heart-alert-cooldown-seconds: 5.0
+skill-check-min-seconds: 4.0
+skill-check-max-seconds: 9.0
+skill-check-duration-seconds: 2.4
+skill-check-success-window-seconds: 0.34
+# 中央の金色判定。通常成功より狭い代わりに進行ボーナスが大きくなります。
+skill-check-great-window-seconds: 0.10
+skill-check-success-bonus: 2
+skill-check-great-bonus: 5
+skill-check-failure-penalty: 10
+heart-placement-mode: random
+# v0.38.6: 配置数と必要破壊数を分離。最後の1個キャンプ対策。
+game-mode: normal
+normal-mode:
+  heart-placement-count: 10
+  required-heart-breaks: 8
+duo-mode:
+  oni-count: 2
+  player-count: 12
+  heart-placement-count: 14
+  required-heart-breaks: 10
+  exit-oni-danger-radius: 14.0
+tag-mode:
+  # 大人数鬼ごっこ。実プレイヤー不足分をBotで補充する際の目標人数。
+  player-count: 20
+  # 開始後、鬼が神社に出現するまでの猶予。
+  oni-release-seconds: 45
+  # 内部試合時間。ぷれいやー側UIには残り時間を表示しない。
+  game-seconds: 1200
+  # プレイヤーには表示しない最終フェーズ開始時刻。
+  final-seconds: 180
+  border-size: 200.0
+  area-default-radius: 8.0
+  respawn-protection-seconds: 5
+  # 致死時の緊急離脱用残機。アスレチック復帰時に最大まで補充。
+  lives:
+    normal: 1
+    streamer: 2
+    escape-duration-ticks: 100
+    escape-speed-amplifier: 2
+  # UUID文字列。/og tag streamer <player> on|off で管理。
+  streamer-players: []
+  parkour:
+    goal-radius: 2.5
+  player-bot:
+    flee-radius: 18.0
+    flee-step: 1.02
+    roam-step: 0.72
+    roam-radius: 22.0
+# 旧設定互換
+random-heart-count: 10
+heart-marker-name: "鬼の心臓地点"
+exit-radius: 3.0
+friendly-fire: false
+player-walk-speed: 0.20
+oni-walk-speed: 0.255
+oni-heart-protection:
+  # v0.40.47: 固定軽減は廃止。残り心臓数に応じ 97%→95%→92%→87%→75%→58%→38%→18%→0% と段階低下。
+  damage-taken-multiplier: 0.20 # 旧設定互換（現在は未使用）
+  # 1秒あたりの自動回復量（体力1.0 = ハート半個）。
+  regeneration-per-second: 1.25
+oni-passive-skills:
+  footstep-hunter-extra-range: 6.0
+  scent-trail-seconds: 8
+  hunters-instinct-idle-seconds: 8
+  hunters-instinct-interval-seconds: 12
+  obsession-reacquire-seconds: 20
+  obsession-speed-ticks: 50
+  beast-path-speed-ticks: 50
+  ambush-idle-seconds: 10
+  ambush-speed-ticks: 70
+  pressure-radius: 3.5
+  last-fortress-heart-threshold: 2
+  hunting-ground-seconds: 6
+  heart-break-effect-radius: 8.0
+  cursed-vein-ticks: 80
+  homing-speed-ticks: 80
+  territory-radius: 8.0
+  territory-cooldown-multiplier: 0.80
+  blood-frenzy-window-millis: 3500
+  blood-frenzy-damage-step: 0.05
+  finisher-health-ratio: 0.40
+  finisher-speed-ticks: 45
+  skill-seal-millis: 1500
+  blood-mark-cooldown-recovery-millis: 6000
+  mastery-cooldown-multiplier: 0.82
+  momentum-stamina-recovery: 2.5
+  anchor-knockback-resistance: 0.40
+  pulse-speed-ticks: 90
+  pulse-speed-amplifier: 0
+  execution-damage-multiplier: 1.20
+  # 「渇望」は追跡継続5秒ごとに加速し、標準では最大Speed IIです。
+  craving-step-seconds: 4
+  craving-max-amplifier: 1
+  # 「血嗅」は最大体力80%以下の獲物を8秒ごとに2.5秒間発光させます。
+  blood-scent-interval-seconds: 8
+  blood-scent-health-ratio: 0.80
+  blood-scent-glow-ticks: 50
+  # 「守護」は心臓損壊通知の間隔を半分にします。
+  guardian-alert-interval-multiplier: 0.50
+  # 「捕食」は各獲物が初めて瀕死になった時にスタミナを回復します。
+  predation-stamina-recovery: 6.0
+  # 「妨害」は成功判定幅を35%狭め、通常成功時に損壊進行を3後退させます。
+  interference-window-multiplier: 0.65
+  interference-normal-regression: 3
+  interference-bot-success-multiplier: 0.75
+stamina:
+  # 満腹度20をスタミナ最大値として使用します。
+  drain-per-second: 2.0
+  recovery-per-second: 1.5
+  sneak-recovery-per-second: 2.5
+  # 走りながらジャンプした瞬間に追加消費します。
+  dash-jump-cost: 5.0
+  dash-jump-slow-ticks: 20
+auto-step:
+  # 鬼・ぷれいやーがジャンプせず1ブロック段差を登れます。
+  enabled: true
+  probe-distance: 0.45
+healing:
+  skill-duration-seconds: 5.5
+  skill-amount: 20.0
+  item-duration-seconds: 9.0
+  item-amount: 10.0
+  move-tolerance: 0.45
+  # パッシブ「絆」の共有回復。1.0なら治療した本人と同じ量を回復します。
+  bond-radius: 6.0
+  bond-shared-heal-multiplier: 1.0
+skills:
+  # EX「字九字ひろ」メイン 武芸
+  bugei:
+    target-range: 18.0
+    launch-upward-velocity: 1.05
+    dive-speed: 1.75
+    impact-distance: 2.2
+    sealed-damage: 6.0
+    final-damage: 10.0
+    knockback: 1.35
+    max-dive-ticks: 32
+    final-boost-distance: 5.0
+    final-boost-multiplier: 1.35
+    trail-density: 10
+    impact-ring-particles: 42
+    # 武芸の中央スロット演出。抽選ではなく、必ず「跳躍 → 武芸 → キック」で停止する。
+    slot-step-ticks: 4
+  # 疾走: 5秒間の速度上昇III（Potion amplifier 2）
+  sprint-duration-ticks: 100
+  sprint-amplifier: 2
+  # 安定着地: 落下ダメージ無効後、4秒間の速度上昇III
+  safe-landing-speed-ticks: 80
+  safe-landing-speed-amplifier: 2
+  # メインスキル「執念」で自分と鬼が発光する秒数。
+  obsession-glow-seconds: 8
+
+
+# 幽鬼（ゆうき）: 隠密・奇襲型
+yuuki-skills:
+  veil:
+    cooldown-seconds: 30
+    speed-amplifier: 0
+    warning-radius: 5.0
+    uncloak-speed-ticks: 50
+    ambush-window-millis: 3000
+    ambush-damage-multiplier: 1.30
+  haze-step:
+    cooldown-seconds: 18
+    range: 6.0
+    unlock-after-broken-hearts: 2
+  shadow-bind:
+    cooldown-seconds: 30
+    radius: 5.0
+    slowness-ticks: 50
+    skill-seal-millis: 1800
+    unlock-after-broken-hearts: 4
+  divine-hide:
+    cooldown-seconds: 55
+    duration-ticks: 180
+    warning-radius: 2.5
+    ambush-damage-multiplier: 1.65
+    unlock-after-broken-hearts: 6
+
+# 疾鬼（しっき）: 索敵・高速機動・連続狩猟型
+shikki-skills:
+  frenzy:
+    cooldown-seconds: 32
+    duration-ticks: 160
+    speed-amplifier: 2
+    attack-damage-multiplier: 0.55
+    hit-extend-ticks: 30
+    unlock-after-broken-hearts: 4
+  blood-run:
+    cooldown-seconds: 28
+    radius: 36.0
+    unlock-after-broken-hearts: 2
+  hunting-leap:
+    # 疾鬼の主力移動。短CTで何度も飛び、跳躍直後の命中で次の跳躍を早める。
+    cooldown-seconds: 6
+    frenzy-cooldown-seconds: 3
+    power: 1.35
+    frenzy-power: 1.75
+    attack-window-millis: 3000
+    hit-cooldown-recovery-millis: 999999
+    # 初動を含め最大3跳。空中で同じ跳躍狩りを追加入力すると連鎖する。
+    max-chain: 3
+    chain-grace-1-millis: 1200
+    chain-grace-2-millis: 750
+    bot-cooldown-seconds: 6
+    bot-power: 1.45
+    # 残り10分「鬼力活性」: 跳躍狩りを解放。CT0、飛距離+15%、猶予2倍、最大9連跳。
+    empowered-power-multiplier: 1.15
+    empowered-max-chain: 9
+    empowered-grace-multiplier: 2.0
+    empowered-bot-max-chain: 9
+    empowered-bot-chain-delay-multiplier: 0.8
+    # NORMAL=1跳 / ELITE=最大2跳 / EXTRA=最大3跳。着地時は残り連鎖を破棄。
+    bot-chain-delay-1-ticks: 10
+    bot-chain-delay-2-ticks: 6
+    unlock-after-broken-hearts: 0
+  chain-hunt:
+    cooldown-seconds: 45
+    extend-ticks: 80
+    finisher-damage-multiplier: 1.75
+    unlock-after-broken-hearts: 6
+
+dakko-skills:
+  fox-walk:
+    cooldown-seconds: 16
+    range: 30
+    after-speed-ticks: 60
+    control-resist-ticks: 20
+    trail-damage: 4.0
+    trail-radius: 1.15
+    trail-linger-ticks: 35
+  clone:
+    # 分霊: 本体と同じ見た目の弱体化堕狐鬼Botを短時間召喚。
+    duration-seconds: 15
+    spawn-count: 2
+    max-active: 2
+    health-ratio: 0.40
+    attack-ratio: 0.45
+    movement-ratio: 0.85
+    attack-cooldown-ticks: 22
+    bot-cooldown-seconds: 32
+    unlock-after-broken-hearts: 2
+  fox-fire:
+    cooldown-seconds: 25
+    radius: 7.0
+    fixed-damage: 6.0
+    fire-ticks: 100
+    unlock-after-broken-hearts: 4
+  heavenly-arrival:
+    cooldown-seconds: 32
+    target-range: 24
+    launch-height: 10.0
+    impact-radius: 5.0
+    impact-damage: 8.0
+    unlock-after-broken-hearts: 6
+kishin-skills:
+  slam:
+    unlock-after-broken-hearts: 2
+  # 鬼吼: 周囲へ低威力の衝撃波＋追跡を助ける妨害。
+  roar:
+    cooldown-seconds: 28
+    radius: 8.0
+    fixed-damage: 5.0
+    slowness-ticks: 70
+    weakness-ticks: 80
+    knockback: 0.65
+    unlock-after-broken-hearts: 4
+  # 剛身: 短時間だけ耐久・追跡・攻撃性能をまとめて強化する。
+  iron-body:
+    cooldown-seconds: 32
+    duration-ticks: 120
+    # 人間鬼はStrength II、鬼Botはこの倍率で通常攻撃を強化。
+    attack-damage-multiplier: 1.40
+    unlock-after-broken-hearts: 6
+random-loot-chest-count: 8
+midgame-support-chests:
+  count: 3
+arena-setup:
+  spawn-max-y: 90
+  safety:
+    # 自動配置で薄い空中床・空中ロビーを地表と誤認しないための最低地盤厚。
+    minimum-solid-depth: 3
+    # ぷれいやー/鬼の自動スポーンは水域から最低この距離を確保する。
+    spawn-water-distance: 12
+    # 心臓・出口・チェスト等の自動配置も水際を避ける。
+    general-water-distance: 4
+  # /og arenasetup を実行した地点を中心に、通常試合用の200x200区域を一括設定。
+  enabled: false
+  size: 200
+  heart-candidate-count: 16
+  world-border-enabled: true
+  world-border-warning-distance: 8
+
+test-arena:
+  # 参加者0人で開始したテストプレイ専用。コマンド実行地点を中心にした正方形です。
+  size: 200
+  heart-count: 8
+  loot-chest-count: 5
+  world-border-enabled: true
+  world-border-warning-distance: 8
+exit-beacon:
+  # 全心臓破壊後、脱出地点から空へビーコン風の光柱を表示します。
+  enabled: true
+  height: 80
+  particle-step: 0.5
+  dust-size: 2.2
+heart-proximity-particles:
+  # 未破壊の心臓へ近づいたぷれいやーだけに、心臓上の目印を表示します。
+  enabled: true
+  radius: 18.0
+oni-heart-awareness:
+  enabled: true
+  particle-count: 18
+  particle-size: 1.8
+player-lives:
+  # 人間ぷれいやー・ぷれいやーBotは1回だけ致死ダメージを耐え、完全透明化して逃走できる。
+  enabled: true
+  escape-duration-ticks: 160
+  escape-speed-amplifier: 4
+  revive-health-ratio: 0.35
+
+player-hit-grace:
+  enabled: true
+  duration-ticks: 60
+  speed-amplifier: 1
+loot-chests:
+  open-seconds: 6.0
+  move-tolerance: 0.55
+  min-items: 1
+  max-items: 3
+  max-carried-items: 3
+  # 装備品はこの上限に含めず、チェスト下段から別抽選します。
+  min-equipment: 1
+  max-equipment: 1
+safety-rescue:
+  # 鬼・ぷれいやー・全Bot共通の詰み救済。
+  enabled: true
+  auto-bots: true
+  auto-players-when-embedded: true
+  search-radius: 12
+  vertical-search: 6
+  bot-stuck-checks: 10
+  # 手動救済は「本当に脱出不能」と判定された時だけ許可。
+  cooldown-seconds: 180
+  player-command-enabled: true
+  deny-while-chased: true
+  deny-near-oni-radius: 18.0
+  deny-after-combat-seconds: 12
+  require-no-escape-space: true
+  # 不正/不要な連打を検知し、一時ロックする。
+  abuse-window-seconds: 120
+  abuse-attempt-limit: 3
+  abuse-lock-seconds: 600
+  notify-ops-on-lock: true
+
+bot:
+  difficulty: ELITE # NORMAL / ELITE / EXTRA
+  movement-speed: 0.34
+  attack-damage: 8.0
+  # 鬼Botが同じZombie系エンティティのぷれいやーBotも確実に追跡・攻撃する補助制御
+  player-bot-chase-velocity: 0.30
+  player-bot-attack-range: 2.5
+  player-bot-attack-cooldown-ticks: 18
+  rest-seconds: 2.5
+  dakko-heavenly-min-range: 8.0
+  dakko-heavenly-max-range: 24.0
+  dakko-heavenly-windup-ticks: 12
+  hunter-ai:
+    enabled: true
+    # 上位ぷれいやーAIに合わせた鬼Botの判断補助。
+    target-heart-worker-bonus: 8.0
+    target-injured-bonus: 7.0
+    target-human-bonus: 2.5
+    target-friendly-npc-bonus: 5.0
+    target-distance-weight: 1.0
+    retarget-hysteresis: 3.0
+    heart-defense-radius: 16.0
+    heart-defense-bonus: 6.0
+    skill-save-health-ratio: 0.45
+    prediction-seconds: 0.65
+    prediction-max-distance: 3.5
+    final-target-bonus: 5.0
+    human-oni-heart-alert-speed-ticks: 50
+    human-oni-heart-alert-speed-amplifier: 0
+    # 長時間距離を詰められない相手は時間稼ぎと判断して標的変更。ただし瀕死/近距離なら狩り切る。
+    time-waste-seconds: 14.0
+    minimum-closing-distance: 3.0
+    time-waste-penalty: 16.0
+    commit-distance: 5.0
+    commit-health-ratio: 0.38
+    nearly-caught-bonus: 10.0
+friendly-npc:
+  # ゲーム開始前に /og ally <preset> で設定。空文字で無効。
+  preset: ""
+  elite-ai:
+    enabled: true
+    think-radius: 20.0
+    danger-radius: 12.0
+    intercept-radius: 10.0
+    support-health-ratio: 0.70
+    medic-follow-distance: 4.5
+    safe-heart-player-penalty: 110.0
+    safe-heart-bot-penalty: 75.0
+    safe-heart-oni-distance-weight: 1.8
+    movement-multiplier: 1.12
+    chase-movement-multiplier: 1.18
+    rion-blink-distance: 4.0
+    rion-blink-trigger-radius: 10.0
+    iona-decoy-distance: 10.0
+    iona-decoy-duration-seconds: 18
+    iona-decoy-cooldown-seconds: 18
+
+player-bot:
+  # 心臓損傷速度を人間側の調整に合わせて少し抑える。
+  heart-progress-multiplier: 0.80
+  # v0.25.0: 通常試合でもぷれいやー陣営がこの人数に満たない場合、不足分をBotで自動補充します。
+  # 例: 実参加3人 -> 1人が鬼、残る2人＋Bot3体でぷれいやー陣営5人。
+  auto-fill-enabled: true
+  auto-fill-target: 5
+  # 鬼側Bot戦の標準人数。
+  default-count: 5
+  solo-player-test-teammates: 4
+  # Paperの経路探索で使用するZombie本体の基礎移動速度
+  pathfinder-base-movement-speed: 0.25
+  flee-radius: 10.0
+  move-step: 0.65
+  flee-step: 0.85
+  last-life:
+    # 残機を消費済みのBotは鬼との接敵を避け、未発見時は静かに移動する。
+    stealth-radius: 24.0
+    full-flee-radius: 12.0
+    stealth-step: 0.34
+  movement:
+    # 滑らかな操舵、障害物回避、Bot同士の分散、1ブロック段差の乗り越え
+    max-velocity: 0.28
+    step-to-velocity: 0.36
+    steering-smoothing: 0.42
+    separation-radius: 2.2
+    separation-strength: 0.8
+    shared-heart-penalty: 64.0
+    flee-strafe: 3.0
+    stuck-updates-before-jump: 3
+    # 0.5秒間隔でこの回数動けなければ、近くの安全な床へ復帰します。
+    stuck-updates-before-recovery: 12
+    jump-velocity: 0.42
+  # 全心臓破壊後、体力に余裕があり、味方が2体以上または鬼が弱っていれば討伐を狙います。
+  hunt-min-health-ratio: 0.60
+  hunt-min-allies: 2
+  hunt-oni-max-health-ratio: 0.50
+  hunt-step: 0.78
+  hunt-attack-range: 2.4
+  hunt-attack-damage: 3.5
+  hunt-attack-cooldown-ticks: 20
+  skill-check-success-chance: 0.72
+  skill-check-great-chance: 0.12
+  skill-check-reaction-seconds: 0.65
+  extra:
+    # 人間上級者を意識したぷれいやーBot。100%成功にはせず、判断の揺らぎを残す。
+    enabled: true
+    skill-check-success-chance: 0.91
+    skill-check-great-chance: 0.32
+    skill-check-reaction-seconds: 0.42
+  stamina-empty-step-multiplier: 0.55
+  passives:
+    # 臆病Botが鬼から逃げる際の移動補正
+    cowardice-flee-step-multiplier: 1.08
+    # 集中Botのスキルチェック成功率・グレイト率加算
+    focus-skill-check-bonus: 0.08
+    focus-great-bonus: 0.05
+  skills:
+    # 治療Botも人間版の上方修正に合わせる。
+    heal-amount: 20.0
+    heal-threshold: 0.65
+    heal-safe-distance: 9.0
+oni-terror-radius: 28.0
+oni-detection-range: 24.0
+oni-field-of-view: 110.0
+chase-lost-seconds: 8.0
+oni-sound-visualizer:
+  # 鬼プレイヤーに足音などの相対方向を8方向HUDと足元の導線で表示します。
+  enabled: true
+  radius: 52
+test-heart-target-range: 20
+final-crimson:
+  enabled: true
+  remaining-seconds: 180
+  # 6000 は最終フェーズ専用（正午）。ロビー(1000)・通常ゲーム(18000)と完全分離。
+  player-time: 6000
+  red-haze-particles: true
+  red-haze-count: 42
+  red-haze-height: 16.0
+  blood-sky:
+    # v0.34.6以降はOptiFine Custom Skyを主方式にするため、旧HUD疑似空は標準OFF。
+    enabled: false
+    font: "onigame:final_sky"
+    glyph: ""
+    delay-ticks: 80
+    fade-in-ticks: 4
+    stay-ticks: 3700
+    fade-out-ticks: 10
+    force-downfall: false
+    # v0.40.17ではFINAL時にplayer-timeとworld-timeの両方を6000(12:00)へ同期してCustom Skyを発動。
+    # 最終フェーズでは雨・雷雨を使わず、雷フラッシュを防止する。通常ゲーム時刻18000とは分離。
+    optifine-custom-sky: true
+    # /og finalsky test と最終フェーズのCustom Sky表示条件。
+    optifine-test-player-time: 6000
+    # 旧HUD方式を再利用したい場合のみ blood-sky.enabled を true にする。
+    intensity: 1.35
+
+final-phase-bgm:
+  enabled: true
+  # 全心臓破壊後は追跡状態に関係なく、全員へ「祟り」を流し続ける。
+  sound: "onigame:chase_tatari"
+  volume: 0.22
+  pitch: 1.0
+  replay-seconds: 271
+
+# v0.24.0 物資箱装備
+equipment:
+  shinai-damage: 3.0
+  shinai-uses: 10
+  iron-bat-damage: 5.0
+  iron-bat-uses: 6
+  flare-gun-uses: 2
+  flare-gun-cooldown-seconds: 15
+  flare-gun-reveal-radius: 8.0
+  flare-gun-glow-seconds: 5
+
+# v0.26.0: /og forceoni で設定されたUUIDは forced-oni-uuid に保存されます。
+# 鬼指定ブロックは locations.oni-selector-block に自動保存されます。
+
+lobby-practice:
+  # /og practicechest と /og practiceheart で登録します。
+  # 練習設備は GameState.WAITING（ロビー中）だけ使用できます。
+  enabled: true
+
+training:
+  # 境界ジャンプ時の入退場チャタリング対策
+  y-margin: 8.0
+  leave-delay-ticks: 20
+  enabled: true
+  # ロビー練習エリア内のみ、メイン/鬼スキルのクールタイムをこの秒数に短縮します。
+  cooldown-seconds: 1
+  show-actionbar-log: true
+
+# v0.29.0 EX鬼「蛇窟姫（ジャクツキ）」
+jakutsuki-stats:
+  max-health: 200.0
+  max-health-loss-per-heart: 10.0
+
+jakutsuki-skills:
+  black-mirror:
+    # SHIFT+右クリックで設置、通常右クリックで設置地点へ転移。
+    cooldown-seconds: 60
+    place-range: 12
+  sweep:
+    cooldown-seconds: 16
+    radius: 7.0
+    angle-degrees: 100.0
+    damage: 7.0
+  snakefall:
+    cooldown-seconds: 45
+    count: 30
+    spawn-radius: 22.0
+    lifetime-seconds: 20
+    glow-seconds: 4
+  release:
+    # 心臓が残り1個の時のみ使用可能。1試合で事実上1回だけの長CT。
+    cooldown-seconds: 9999
+    exit-seal-seconds: 60
+    strength-amplifier: 1
+    speed-amplifier: 1
+  piercing-blast:
+    # 黒の波動: 溜め後、一直線の範囲を複数人まとめて貫く。遮蔽物でも止まらない。
+    cooldown-seconds: 35
+    charge-ticks: 50
+    range: 28.0
+    half-width: 2.0
+    damage: 16.0
+    knockback: 1.15
+    bot-min-range: 7.0
+
+
+jakutsuki-final-phase-bgm:
+  enabled: true
+  # 蛇窟姫でも全心臓破壊後は「祟り」に統一。
+  sound: "onigame:chase_tatari"
+  volume: 0.24
+  pitch: 1.0
+  replay-seconds: 271
+
+
+game-start-bgm:
+  enabled: true
+  sound: "onigame:game_start"
+  volume: 0.14
+  pitch: 1.0
+  replay-seconds: 167
+
+chase-bgm:
+  enabled: true
+  # 追跡BGMは「祟り」。旧final_phase曲を参照しない。
+  sound: "onigame:chase_tatari"
+  volume: 0.18
+  pitch: 1.0
+  replay-seconds: 271
+  release-delay-ticks: 60
+  resume-delay-ticks: 16
+  resume-volume: 0.08
+  resume-fade-steps: 5
+  resume-fade-step-ticks: 10
+
+azakuji-ally:
+  normal-match:
+    enabled: false
+    chance-percent: 15.0
+  divine-technique-extreme:
+    speed-multiplier: 1.32
+    combat-step-multiplier: 1.24
+    attack-multiplier: 1.35
+  divine-possession:
+    trigger-health-ratio: 0.30
+    duration-seconds: 22
+    attack-multiplier: 1.35
+  join-conditions:
+    player-count-threshold: 4
+    remaining-hearts: 3
+  max-health: 60.0
+  # 鬼より少し低い防御。正面から倒せるが、狙い続けるほど時間を失いやすい。
+  armor: 16.0
+  # 鬼と同等クラスの再生力。未指定時はoni-heart-protection.regeneration-per-secondを参照。
+  regeneration-per-second: 1.0
+  # 残り10分で強制消耗。神性憑依中でもこの弱体化を上書きしない。
+  forced-attrition:
+    remaining-seconds: 600
+    armor-multiplier: 0.5
+  # 異獣と同様、発光輪郭ではなく周囲そのものを明るくする。
+  ambient-light:
+    enabled: true
+    level: 12
+  guard-ai:
+    protect-detection-radius: 16.0
+    intercept-distance: 3.0
+    follow-distance: 4.5
+    melee-range: 2.8
+    melee-damage: 7.0
+    melee-cooldown-ticks: 18
+    fight-seconds: 14.0
+    escape-seconds: 2.0
+    taunt-seconds: 8.0
+    low-health-ratio: 0.15
+    escape-distance: 10.0
+    leap-cooldown-ticks: 24
+    combat-leap-cooldown-ticks: 16
+    leap-horizontal-speed: 0.95
+    leap-upward-velocity: 0.72
+    aggro-glow-ticks: 30
+    out-of-combat-regen-delay-seconds: 3.0
+    out-of-combat-regen-per-second: 8.0
+  # プレイヤー周辺を高速巡回して鬼を探す遊撃索敵AI。
+  scout-ai:
+    detection-radius: 28.0
+    close-detection-radius: 12.0
+    patrol-radius: 14.0
+    max-distance-from-players: 22.0
+    retarget-seconds: 4
+    leap-cooldown-ticks: 22
+    leap-horizontal-speed: 0.92
+    leap-upward-velocity: 0.66
+    use-blink: true
+    blink-min-distance: 9.0
+  # 跳躍～攻撃～着地直後までの専用無敵。武芸はより長く保護する。
+  leap-invulnerability-millis: 1800
+  bugei-invulnerability-millis: 3200
+  # 参戦直後は全盛期。時間経過で徐々に消耗し、鬼が無理に討伐する価値を下げる。
+  attrition:
+    prime-seconds: 90
+    worn-seconds: 180
+    worn-multiplier: 0.82
+    exhausted-multiplier: 0.66
+  # NPC専用妨害技。赤雷で鬼を短時間拘束。時間経過または回数切れで使用不能。
+  divine-thunder:
+    enabled: true
+    max-uses: 5
+    available-seconds: 120
+    cooldown-seconds: 30
+    range: 11.0
+    bind-ticks: 50
+  # NPC専用「瞬歩」。短距離だけ安全地点へTPして回避・救援・再突入する。
+  short-blink:
+    enabled: true
+    cooldown-seconds: 13
+    trigger-range: 8.0
+    min-distance: 4.0
+    max-distance: 8.0
+  # 鬼Botは基本的に字九字を狙わない。強い妨害を受けた直後だけ短時間反撃する。
+  oni-bot-retaliation-seconds: 7
+
+jakutsuki-hearts:
+  real-count: 8
+  fake-count: 4
+  fake-trigger-radius: 3.0
+  fake-explosion-radius: 4.5
+  fake-damage: 7.0
+  fake-glow-ticks: 160
+
+jakutsuki-final:
+  # 全ての本物心臓を破壊した時、ぷれいやー陣営へ配布される対蛇窟姫武器。
+  snake-slash-damage: 10.0
+  # 蛇斬を持ったぷれいやーBotは脱出より討伐を最優先する。
+  bot-hunt-step: 0.92
+  bot-attack-cooldown-ticks: 14
+  bot-snake-clear-radius: 7.0
+
+# 全ての本物心臓を破壊した瞬間、「永い夜が明ける」朝焼け演出。
+final-dawn:
+  enabled: true
+  # Minecraft時刻: 18000=真夜中付近、23000=夜明け前、0=日の出、1000=朝。
+  start-time: 18000
+  end-time: 1000
+  duration-seconds: 35
+  step-ticks: 2
+  oni-debuff:
+    # 朝日デバフはバランス再調整まで一時停止。夜明け演出自体は継続する。
+    enabled: false
+    duration-seconds: 9999
+    weakness-amplifier: 2
+    slowness-amplifier: 1
+    mining-fatigue-amplifier: 1
+    glowing: true
+    max-health-loss: 20.0
+    minimum-max-health: 20.0
+
+# EXコンテンツの表示・選択ロック。true の項目は各選択チェスト/UIから完全に隠れます。
+content-locks:
+  # 通常鬼（配信・イベントごとに使用可否を切替）
+  dakko: false
+  kiou: false
+  shikki: false
+  yuuki: false
+  # EX鬼
+  onigami: false
+  azakuji-hiro: false
+  jakutsuki: false
+
+# ロビー案内 TextDisplay
+lobby-guide:
+  enabled: true
+  chest-height: 1.65
+  rules-height: 1.8
+  skill-chest-text: "&b&l【スキル選択】\n&f右クリックでスキル・パッシブを設定"
+  oni-chest-text: "&c&l【鬼設定】\n&f鬼・鬼パッシブを設定"
+  rules-text: "&4&l◆ 鬼げぇむ ◆\n&fぷれいやー: 心臓を破壊し、出口から脱出\n&c鬼: 心臓を守り、ぷれいやーを全滅させる\n&6全心臓破壊後は残り3分の最終フェーズ"
+
+# v0.35.7 トークン系パッシブ
+token-passives:
+  footstep-thief-max: 4
+  deadline-accounting-max: 3
+  three-phase-cooldown-multiplier: 0.50
+  deadline-cooldown-multiplier: 0.70
+
+# ロビーをゲームマップ内へ組み込む場合の設備自動退避
+# ゲーム開始時: 登録済みロビー設備をAIRへ退避
+# ゲーム終了/正常停止/次回起動時: 元のBlockData・チェスト内容を復元
+lobby-hide:
+  enabled: true
+  snapshot-active: false
+  snapshot-count: 0
+
+# v0.39.3 鬼神（オニガミ） ※内部キー kanki は互換性維持のため継続
+kanki-skills:
+  summon:
+    cooldown-seconds: 30
+    duration-seconds: 22
+    health: 24.0
+    attack-damage: 5.0
+    # 召喚鬼が固有技を試みる間隔・初回遅延・使用率
+    signature-first-delay-ticks: 30
+    signature-check-ticks: 50
+    signature-use-chance: 0.55
+    kishin-roar-radius: 6.0
+  command:
+    cooldown-seconds: 8
+    range: 36.0
+  recall:
+    cooldown-seconds: 38
+    duration-seconds: 15
+  parade:
+    cooldown-seconds: 70
+    duration-seconds: 18
+
+# v0.39.5: 切断保護（Phase 1）
+disconnect:
+  # 試合中に切断しても、この秒数以内なら同じ役職のまま復帰できます。
+  # Phase 1では猶予中は役職枠を保持し、時間切れ後に従来の脱落/鬼不在判定へ移行します。
+  grace-seconds: 60
+
+# v0.39.9: 大人数向け広域攻略型 ESCAPE モード Phase 1
+escape:
+  game-seconds: 1800
+  required-events: 5
+  final-seconds: 240
+  onis:
+    two-from-players: 15
+    three-from-players: 23
+  # /og escape region pos1 / pos2 / add <id> [表示名] で登録
+  regions: {}
+
+# v0.40.1 鬼域 Phase 2A/2B
+oni-domain:
+  radius: 28.0
+  duration-seconds: 60
+  cooldown-seconds: 90
+  shikki:
+    double-jump-forward: 0.85
+    double-jump-up: 0.72
+    max-wall-kicks: 3
+    wall-kick-away: 0.95
+    wall-kick-up: 0.82
+  dakko:
+    max-spirits: 3
+    swap-range: 32.0
+    fox-lamp-radius: 12.0
+    fox-feast-seconds: 10
+
+# v0.40.2 堕狐 熟練拡張（数値強化ではなく操作・連携を追加）
+dakko-mastery:
+  clone-swap-range: 28.0
+  clone-swap-cooldown-seconds: 4
+  fox-mark-seconds: 8
+  fox-chain-window-seconds: 10
+  heavenly-fox-fire-recovery-millis: 12000
+  bot-clone-swap-cooldown-seconds: 5
+  bot-mark-ambush-cooldown-seconds: 7
+
+# v0.40.4 エリアアクションポイント
+# マップを壊さず、移動ルートを追加する汎用ギミック。
+area-points:
+  enabled: true
+  trigger-radius: 1.15
+  retrigger-millis: 900
+  defaults:
+    updraft-height: 18.0
+    jump-pad-power: 1.45
+    spirit-road-speed: 1.15
+    safe-drop-forward: 0.45
+  autogen:
+    radius: 96
+    sample-step: 8
+    min-height-difference: 8
+    max-candidates: 16
+  points: {}
+
+
+# OP向け内部エラー通知。OFFでもconsoleへの記録は継続します。
+admin-error-notify:
+  enabled: true
+
+# v0.40.6 ロビー境界。/og lobbyarea pos1/pos2 で設定。map_makerタグは回避。
+lobby-boundary:
+  margin: 2.5
+  y-margin: 12.0
+
+# v0.40.14 ロビー専用可変ブロック
+# lobbyarea pos1/pos2 の範囲内で、ここに登録した種類だけ試合中AIR化し終了時に復元。
+lobby-material-blocks:
+  enabled: true
+  materials: []
+  max-scan-blocks: 500000
+  snapshot-active: false
+  snapshot-count: 0
+
+# v0.40.23 第三勢力「異獣（イキモノ）」
+# enabled=false なら従来どおり一切出現しません。
+ikimono:
+  enabled: false
+  count: 3
+  spawn-radius: 85
+  max-health: 24.0
+  attack-damage: 3.0
+  movement-speed: 0.25
+  aggro-range: 16.0
+  ambient-light:
+    enabled: true
+    # 発光エフェクトではなく、異獣の周囲を照らす不可視LIGHTブロック。
+    level: 12
+  buff-duration-seconds: 30
+  contribution:
+    # 与ダメージ中心。異獣から攻撃を受けて前線を支えた分も少量加点。
+    damage-weight: 1.0
+    tank-weight: 0.25
+    last-hit-bonus: 5.0
+    # どちらかを満たせば報酬対象。
+    minimum-rate: 0.10
+    minimum-points: 8.0
+
+# v0.40.28 字九字ひろ NPC専用 Elite AI
+# 蛇窟姫以外の通常戦では、ON時のみこの確率で開始時からレア参戦する。
+azakuji-ally-v04028-note: "NPC専用: 武芸 / 神喰 / 神技・極 / 守護 / 神性憑依"
+
+

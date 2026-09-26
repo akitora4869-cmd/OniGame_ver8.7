@@ -1,0 +1,6 @@
+-encoding
+UTF-8
+-Xmaxerrs
+30
+-proc:none
+src/main/java/jp/muimi/onigame/OniGamePlugin.java
